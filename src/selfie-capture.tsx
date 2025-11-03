@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const DocumentSelfieVerifier = () => {
-  const selfieVideoRef = useRef(null);
-  const selfieCanvasRef = useRef(null);
+  const selfieVideoRef = useRef<any>(null);
+  const selfieCanvasRef = useRef<any>(null);
 
-  const [selfie, setSelfie] = useState(null);
-  const [document, setDocument] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
+  const [selfie, setSelfie] = useState<any>(null);
+  const [document, setDocument] = useState<any>(null);
+  const [loading, setLoading] = useState<any>(false);
+  const [result, setResult] = useState<any>();
+  const [error, setError] = useState<any>(null);
 
   // Start the camera for selfie
   const startSelfieCamera = async () => {
@@ -38,13 +38,13 @@ const DocumentSelfieVerifier = () => {
   };
 
   // Handle document upload
-  const handleDocumentUpload = (e) => {
+  const handleDocumentUpload = (e: any) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
+    const reader: any = new FileReader();
     reader.onloadend = () => {
-      const base64Image = reader.result.split(',')[1];
+      const base64Image = reader.result!.split(',')[1];
       setDocument(base64Image);
     };
     reader.readAsDataURL(file);
@@ -74,6 +74,14 @@ const DocumentSelfieVerifier = () => {
       });
 
       const data = await response.json();
+      console.log(data);
+      if (data.statusCode === 200) {
+        console.log(data.statusCode);
+        setResult(data.body);
+      } else {
+        console.log(data.body);
+        setError(data.body.error);
+      }
 
       // Parse the nested JSON inside "body" if needed
       const parsedBody =
@@ -145,10 +153,11 @@ const DocumentSelfieVerifier = () => {
             marginTop: '20px',
             padding: '10px',
             borderRadius: '8px',
-            background: '#e0ffe0',
+            border: '1px solid #ccc',
+            // background: '#e0ffe0',
           }}
         >
-          <h3>✅ Verification Result</h3>
+          <h3>Verification Result</h3>
           <p>Similarity: <b>{result.similarity}</b></p>
           <p>Matches Found: <b>{result.matches_found}</b></p>
         </div>
