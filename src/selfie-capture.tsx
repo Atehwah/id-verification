@@ -101,10 +101,10 @@ const DocumentSelfieVerifier = () => {
 
   return (
     <div style={{ fontFamily: 'sans-serif', maxWidth: 500, margin: 'auto' }}>
-      <h1>Document & Selfie Verification</h1>
+      <h3>Document & Selfie Verification</h3>
 
       <section style={{ marginBottom: '20px' }}>
-        <h3>Step 1: Take a Selfie</h3>
+        <h2>Step 1: Take a Selfie</h2>
         <video
           ref={selfieVideoRef}
           style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }}
@@ -128,7 +128,7 @@ const DocumentSelfieVerifier = () => {
       </section>
 
       <section style={{ marginBottom: '20px' }}>
-        <h3>Step 2: Upload Document</h3>
+        <h2>Step 2: Upload Document</h2>
         <input type="file" accept="image/*" onChange={handleDocumentUpload} />
         {document && (
           <div style={{ marginTop: '10px' }}>
