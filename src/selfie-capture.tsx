@@ -217,8 +217,8 @@ const DocumentSelfieVerifier = () => {
   const s3 = new S3Client({
         region: 'us-east-1',
         credentials: {
-          accessKeyId: 'AKIAQ3YIAA6SGYK6FWNQ',
-          secretAccessKey: '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'
+          accessKeyId: '******',
+          secretAccessKey: '******+d'
         }
       });
   const uploadFile = async(folderName: string, file: File) => {
