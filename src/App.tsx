@@ -20,10 +20,7 @@ import DocumentSelfieVerifier from './selfie-capture';
 
 const App = () => {
   return (
-    <div>
-      <h1>Document Verification</h1>
       <DocumentSelfieVerifier />
-    </div>
   );
 };
 
