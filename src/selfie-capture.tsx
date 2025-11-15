@@ -19,13 +19,13 @@ const DocumentSelfieVerifier = () => {
 
   const s3 = new S3Client({
     region: 'us-east-1',
-    credentials: { accessKeyId: 'AKIAQ3YIAA6SGYK6FWNQ', secretAccessKey: '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' },
+    credentials: { accessKeyId: process.env.AccessKeyID, secretAccessKey: process.env.SecretAccessKey },
   });
 
   const uploadFile = async (folderName: string, file: File) => {
     const arrayBuffer = await file.arrayBuffer();
     const params = {
-      Bucket: 'id-verification-v2',
+      Bucket: 'id-verification-v3',
       Key: `${folderName}/${file.name}`,
       Body: new Uint8Array(arrayBuffer),
       ContentType: file.type,
@@ -97,13 +97,13 @@ const DocumentSelfieVerifier = () => {
       await uploadFile('selfie', selfieFile);
       await uploadFile('docs', documentFile);
 
-      const res = await fetch('https://iynk4bkqx9.execute-api.us-east-1.amazonaws.com/dev/id-v', {
+      const res = await fetch('https://qlju1ki45e.execute-api.us-east-1.amazonaws.com/dev-id/id-v', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          selfie_bucket: 'id-verification-v2',
+          selfie_bucket: 'id-verification-v3',
           selfie_key: `selfie/${selfieFile.name}`,
-          dl_bucket: 'id-verification-v2',
+          dl_bucket: 'id-verification-v3',
           dl_key: `docs/${documentFile.name}`,
         }),
       });
@@ -125,7 +125,7 @@ const DocumentSelfieVerifier = () => {
     <>
       <style>{`
         body { font-family: Arial, sans-serif; background: #000; }
-        .container { max-width: 100%; margin: 40px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+        .container { max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
         h2 { color: #000; margin-bottom: 15px; }
         video { width: 100%; border-radius: 12px; border: 1px solid #ddd; }
         input[type="file"] { padding: 8px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; }
