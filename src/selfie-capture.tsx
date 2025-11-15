@@ -18,7 +18,7 @@ const DocumentSelfieVerifier = () => {
   const [error, setError] = useState<string | null>(null);
 
   const s3 = new S3Client({
-    region: 'us-east-1',
+    region: process.env.Region,
     credentials: { accessKeyId: process.env.AccessKeyID, secretAccessKey: process.env.SecretAccessKey },
   });
 
